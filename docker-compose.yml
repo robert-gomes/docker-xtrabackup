@@ -1,0 +1,9 @@
+xtrabackup:
+  build: .
+  container_name: mysql-xtrabackup
+  environment:
+    - MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
+  volumes:
+    - ./backup:/backup
+  volumes_from:
+    - mysql
