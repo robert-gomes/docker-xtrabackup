@@ -1,4 +1,4 @@
-FROM ubuntu:15.04
+FROM debian:jessie
 MAINTAINER Martin Helmich <m.helmich@mittwald.de>
 
 RUN apt-key adv --keyserver keys.gnupg.net --recv-keys 1C4CBDCDCD2EFD2A
@@ -8,6 +8,6 @@ RUN apt-get install -y percona-xtrabackup
 
 VOLUME /var/backup/mysql
 
-CMD xtrabackup --backup --datadir /var/lib/mysql --target-dir=/target && \
-    xtrabackup --prepare --target-dir=/target && \
-    xtrabackup --prepare --target-dir=/target
+CMD xtrabackup --backup --user=root --password=$MYSQL_ROOT_PASSWORD --datadir /var/lib/mysql --target-dir=/backup && \
+    xtrabackup --prepare --target-dir=/backup && \
+    xtrabackup --prepare --target-dir=/backup
